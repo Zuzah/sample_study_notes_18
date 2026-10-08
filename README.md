@@ -208,8 +208,12 @@ def test_create_fircosoft_manifest_for_file_returns_mrk_path(tmp_path):
 app/services/report_definition_service.py:
 
 ```python
-#Add edl:
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Optional
 
+from app.core.config import settings
+from app.services.fenergo_service import ReportSource
 from report_definitions import (
     cander_report,
     china_gtt_report,
@@ -219,30 +223,45 @@ from report_definitions import (
     uk_product_report,
 )
 
-# ...
 
-# Add to @dataclass class ReportDefinition:
+@dataclass
+class ReportDefinition:
+    """Exactly one of sql_file or saved_query_id must be set, never both, never
+    neither - mirrors ReportSource's exclusivity rule in fenergo_service.py.
 
-"""
+    archive_path (required, e.g. "GTT/China"): where this report's output lives,
+    relative to the Archive/Failed root - see reporting_orchestrator.py's
+    _resolve_output_directory(). Locally that's settings.download_path/archive_path
+    directly (no Archive/Failed split); once settings.AUDIT_ROOT is set (K8s), it
+    becomes AUDIT_ROOT/Archive/archive_path on success or AUDIT_ROOT/Failed/
+    archive_path if delivery fails after a file was produced (docs/decisions.md
+    2026-08-24). Required, not defaulted - every real report needs a real answer
+    here, not a silent fallback that could be wrong.
+
+    sftp_connection (optional, e.g. "ClientCentralData"): which named SFTP
+    connection (app/services/sftp_connection_service.py) this report delivers to.
+    None means "use the legacy single global SFTP_* settings" - see
+    delivery_service.py.
+
     marker_type ("sha256" default): sidecar-file strategy, see
     reporting_orchestrator.py's _generate_marker_artifact(). Non-"sha256"
     requires both manifest_* fields set.
 
     output_filename_template (optional): overrides the default
-    "{report_name}_{date}.csv" output filename, see _resolve_output_filename()
-"""
+    "{report_name}_{date}.csv" output filename, see _resolve_output_filename()."""
 
-#...
-
-    # add after sftp_connection: Optional[str] = None
+    template_file: str
+    archive_path: str
+    sql_file: Optional[str] = None
+    saved_query_id: Optional[str] = None
+    generate_marker: bool = True
+    sftp_connection: Optional[str] = None
     marker_type: str = "sha256"
     output_filename_template: Optional[str] = None
     manifest_source_appl: Optional[dict] = None
     manifest_source_file_static: Optional[dict] = None
 
-    # replace def __post
-
-        def __post_init__(self):
+    def __post_init__(self):
         if bool(self.sql_file) == bool(self.saved_query_id):
             raise ValueError("Exactly one of sql_file or saved_query_id must be set")
         if self.marker_type != "sha256":
@@ -262,23 +281,68 @@ from report_definitions import (
                     f"manifest_source_file_static is missing {sorted(missing)}"
                 )
 
-# ... Add in class ReportDefinitionService:
 
-            # after this: sftp_connection=getattr(module, "SFTP_CONNECTION", None),
+class ReportDefinitionService:
+    """Owns the report-name -> {sql_file | saved_query_id, template_file} registry."""
+
+    _registry: dict[str, ReportDefinition] = {
+        module.REPORT_NAME: ReportDefinition(
+            template_file=module.TEMPLATE_FILE,
+            archive_path=module.ARCHIVE_PATH,
+            sql_file=getattr(module, "SQL_FILE", None),
+            saved_query_id=getattr(module, "SAVED_QUERY_ID", None),
+            generate_marker=getattr(module, "GENERATE_MARKER", True),
+            sftp_connection=getattr(module, "SFTP_CONNECTION", None),
             marker_type=getattr(module, "MARKER_TYPE", "sha256"),
             output_filename_template=getattr(module, "OUTPUT_FILENAME_TEMPLATE", None),
             manifest_source_appl=getattr(module, "MANIFEST_SOURCE_APPL", None),
             manifest_source_file_static=getattr(
                 module, "MANIFEST_SOURCE_FILE_STATIC", None
             ),
-     for module in (
+        )
+        for module in (
             cander_report,
             china_gtt_report,
-            edl_report,   # <--
+            edl_report,
             product_report,
             singapore_report,
             uk_product_report,
         )
+    }
+
+    @classmethod
+    def get(cls, report_name: str) -> ReportDefinition:
+        try:
+            return cls._registry[report_name]
+        except KeyError:
+            raise KeyError(
+                f"No report definition registered for '{report_name}'"
+            ) from None
+
+    @classmethod
+    def sql_file_path(cls, report_name: str) -> Path:
+        definition = cls.get(report_name)
+        if definition.sql_file is None:
+            raise ValueError(
+                f"Report '{report_name}' is saved-query-based (no local .sql file) - "
+                f"use report_source() instead of sql_file_path()"
+            )
+        return settings.sql_query_path / definition.sql_file
+
+    @classmethod
+    def template_file_path(cls, report_name: str) -> Path:
+        return settings.template_path / cls.get(report_name).template_file
+
+    @classmethod
+    def report_source(cls, report_name: str) -> ReportSource:
+        """Builds the correct ReportSource for a report - reads the .sql file text
+        for sql_file-based definitions, or wraps saved_query_id directly. Callers
+        never need to branch on which variant a report definition uses."""
+        definition = cls.get(report_name)
+        if definition.sql_file is not None:
+            return ReportSource(sql_query=cls.sql_file_path(report_name).read_text())
+        return ReportSource(saved_query_id=definition.saved_query_id)
+
 ```
 
 tests/services/test_report_definition_service.py:
