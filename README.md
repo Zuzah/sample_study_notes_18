@@ -1603,9 +1603,222 @@ class ReportingOrchestrator:
 
 ```
 
-tests/services/test_reporting_orchestrator.py:
+assets/templates/EDL_Report.xml:
+
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Source=Target deliberately identical for now - real Target renames come later,
+     once transform is actually needed (see docs/decisions.md). -->
+<ExtractConfig ExtractType="CSV" DateFormat="M/d/yyyy h:mm:ss tt" MaxRetry="5">
+    <RecordTemplate>
+        <Column Assignment="1" Source="unique_identification_number" Target="unique_identification_number" DataType="String" />
+        <Column Assignment="2" Source="fenergo_id" Target="fenergo_id" DataType="String" />
+        <Column Assignment="3" Source="legal_entity_name" Target="legal_entity_name" DataType="String" />
+        <Column Assignment="4" Source="legal_entity_type" Target="legal_entity_type" DataType="String" />
+        <Column Assignment="5" Source="entity_type" Target="entity_type" DataType="String" />
+        <Column Assignment="6" Source="legal_entity_category" Target="legal_entity_category" DataType="String" />
+        <Column Assignment="7" Source="lei" Target="lei" DataType="String" />
+        <Column Assignment="8" Source="legal_entity_role" Target="legal_entity_role" DataType="String" />
+        <Column Assignment="9" Source="legal_entity_role_status" Target="legal_entity_role_status" DataType="String" />
+        <Column Assignment="10" Source="lerole_last_updated_date" Target="lerole_last_updated_date" DataType="String" />
+        <Column Assignment="11" Source="lerole_last_updated_by" Target="lerole_last_updated_by" DataType="String" />
+        <Column Assignment="12" Source="alias_1" Target="alias_1" DataType="String" />
+        <Column Assignment="13" Source="alias_1_type" Target="alias_1_type" DataType="String" />
+        <Column Assignment="14" Source="alias_2" Target="alias_2" DataType="String" />
+        <Column Assignment="15" Source="alias_2_type" Target="alias_2_type" DataType="String" />
+        <Column Assignment="16" Source="alias_3" Target="alias_3" DataType="String" />
+        <Column Assignment="17" Source="alias_3_type" Target="alias_3_type" DataType="String" />
+        <Column Assignment="18" Source="alias_4" Target="alias_4" DataType="String" />
+        <Column Assignment="19" Source="alias_4_type" Target="alias_4_type" DataType="String" />
+        <Column Assignment="20" Source="le_last_updated_date" Target="le_last_updated_date" DataType="String" />
+        <Column Assignment="21" Source="jurisdiction" Target="jurisdiction" DataType="String" />
+        <Column Assignment="22" Source="entity_of_onboarding" Target="entity_of_onboarding" DataType="String" />
+        <Column Assignment="23" Source="primary_business_activity" Target="primary_business_activity" DataType="String" />
+        <Column Assignment="24" Source="primary_business_location" Target="primary_business_location" DataType="String" />
+        <Column Assignment="25" Source="principal_place_of_business" Target="principal_place_of_business" DataType="String" />
+        <Column Assignment="26" Source="business_markets" Target="business_markets" DataType="String" />
+        <Column Assignment="27" Source="country_of_domicile" Target="country_of_domicile" DataType="String" />
+        <Column Assignment="28" Source="country_of_incorporation" Target="country_of_incorporation" DataType="String" />
+        <Column Assignment="29" Source="gleif_registration_authority_entityid" Target="gleif_registration_authority_entityid" DataType="String" />
+        <Column Assignment="30" Source="enterprise_sic_code" Target="enterprise_sic_code" DataType="String" />
+        <Column Assignment="31" Source="swift_bic" Target="swift_bic" DataType="String" />
+        <Column Assignment="32" Source="tax_identifier" Target="tax_identifier" DataType="String" />
+        <Column Assignment="33" Source="issuing_country" Target="issuing_country" DataType="String" />
+        <Column Assignment="34" Source="date_of_incorporation" Target="date_of_incorporation" DataType="String" />
+        <Column Assignment="35" Source="is_this_entity_publicly_listed" Target="is_this_entity_publicly_listed" DataType="String" />
+        <Column Assignment="36" Source="legal_status" Target="legal_status" DataType="String" />
+        <Column Assignment="37" Source="length_of_relationship_with_scotiabank" Target="length_of_relationship_with_scotiabank" DataType="String" />
+        <Column Assignment="38" Source="aml_watch_list" Target="aml_watch_list" DataType="String" />
+        <Column Assignment="39" Source="annual_revenue_usd_millions" Target="annual_revenue_usd_millions" DataType="String" />
+        <Column Assignment="40" Source="business_changes_made_in_the_last_5_years" Target="business_changes_made_in_the_last_5_years" DataType="String" />
+        <Column Assignment="41" Source="number_of_employees" Target="number_of_employees" DataType="String" />
+        <Column Assignment="42" Source="trading_name" Target="trading_name" DataType="String" />
+        <Column Assignment="43" Source="registration_body" Target="registration_body" DataType="String" />
+        <Column Assignment="44" Source="australian_company_number_issued" Target="australian_company_number_issued" DataType="String" />
+        <Column Assignment="45" Source="anticipated_activity_of_account" Target="anticipated_activity_of_account" DataType="String" />
+        <Column Assignment="46" Source="regulated_by" Target="regulated_by" DataType="String" />
+        <Column Assignment="47" Source="does_the_entity_have_a_previous_name" Target="does_the_entity_have_a_previous_name" DataType="String" />
+        <Column Assignment="48" Source="ltid" Target="ltid" DataType="String" />
+        <Column Assignment="49" Source="regulatory_status" Target="regulatory_status" DataType="String" />
+        <Column Assignment="50" Source="nature_of_business" Target="nature_of_business" DataType="String" />
+        <Column Assignment="51" Source="primary_customer_base" Target="primary_customer_base" DataType="String" />
+        <Column Assignment="52" Source="primary_revenue_generating_products_and_services" Target="primary_revenue_generating_products_and_services" DataType="String" />
+        <Column Assignment="53" Source="registration_number" Target="registration_number" DataType="String" />
+        <Column Assignment="54" Source="payment_countries" Target="payment_countries" DataType="String" />
+        <Column Assignment="55" Source="third_party_account" Target="third_party_account" DataType="String" />
+        <Column Assignment="56" Source="significant_customer_countries" Target="significant_customer_countries" DataType="String" />
+        <Column Assignment="57" Source="significant_revenue_countries" Target="significant_revenue_countries" DataType="String" />
+        <Column Assignment="58" Source="significant_supplier_countries" Target="significant_supplier_countries" DataType="String" />
+        <Column Assignment="59" Source="website" Target="website" DataType="String" />
+        <Column Assignment="60" Source="scheduled_review_date" Target="scheduled_review_date" DataType="String" />
+        <Column Assignment="61" Source="compliance_review_date" Target="compliance_review_date" DataType="String" />
+        <Column Assignment="62" Source="le_last_updated_by" Target="le_last_updated_by" DataType="String" />
+        <Column Assignment="63" Source="specialized_edd_entity_type" Target="specialized_edd_entity_type" DataType="String" />
+        <Column Assignment="64" Source="specialized_edd_required" Target="specialized_edd_required" DataType="String" />
+        <Column Assignment="65" Source="global_risk_rating" Target="global_risk_rating" DataType="String" />
+        <Column Assignment="66" Source="australia_risk_rating" Target="australia_risk_rating" DataType="String" />
+        <Column Assignment="67" Source="canada_risk_rating" Target="canada_risk_rating" DataType="String" />
+        <Column Assignment="68" Source="china_risk_rating" Target="china_risk_rating" DataType="String" />
+        <Column Assignment="69" Source="correspondent_banking_risk_rating" Target="correspondent_banking_risk_rating" DataType="String" />
+        <Column Assignment="70" Source="hong_kong_risk_rating" Target="hong_kong_risk_rating" DataType="String" />
+        <Column Assignment="71" Source="india_risk_rating" Target="india_risk_rating" DataType="String" />
+        <Column Assignment="72" Source="ireland_risk_rating" Target="ireland_risk_rating" DataType="String" />
+        <Column Assignment="73" Source="united_kingdom_risk_rating" Target="united_kingdom_risk_rating" DataType="String" />
+        <Column Assignment="74" Source="united_states_risk_rating" Target="united_states_risk_rating" DataType="String" />
+        <Column Assignment="75" Source="republic_of_korea_risk_rating" Target="republic_of_korea_risk_rating" DataType="String" />
+        <Column Assignment="76" Source="singapore_risk_rating" Target="singapore_risk_rating" DataType="String" />
+        <Column Assignment="77" Source="global_model_exclusions" Target="global_model_exclusions" DataType="String" />
+        <Column Assignment="78" Source="pep_controlled_entity" Target="pep_controlled_entity" DataType="String" />
+        <Column Assignment="79" Source="material_negative_news" Target="material_negative_news" DataType="String" />
+        <Column Assignment="80" Source="negative_news_information_narrative" Target="negative_news_information_narrative" DataType="String" />
+        <Column Assignment="81" Source="title" Target="title" DataType="String" />
+        <Column Assignment="82" Source="first_name" Target="first_name" DataType="String" />
+        <Column Assignment="83" Source="last_name" Target="last_name" DataType="String" />
+        <Column Assignment="84" Source="date_of_birth" Target="date_of_birth" DataType="String" />
+        <Column Assignment="85" Source="place_of_birth" Target="place_of_birth" DataType="String" />
+        <Column Assignment="86" Source="citizenship" Target="citizenship" DataType="String" />
+        <Column Assignment="87" Source="nationality" Target="nationality" DataType="String" />
+        <Column Assignment="88" Source="country_of_residence" Target="country_of_residence" DataType="String" />
+        <Column Assignment="89" Source="gender" Target="gender" DataType="String" />
+        <Column Assignment="90" Source="pan_id" Target="pan_id" DataType="String" />
+        <Column Assignment="91" Source="company_name__insider_or_shareholder_of" Target="company_name__insider_or_shareholder_of" DataType="String" />
+        <Column Assignment="92" Source="marital_status" Target="marital_status" DataType="String" />
+        <Column Assignment="93" Source="number_of_identification_document" Target="number_of_identification_document" DataType="String" />
+        <Column Assignment="94" Source="document_type" Target="document_type" DataType="String" />
+        <Column Assignment="95" Source="document_category" Target="document_category" DataType="String" />
+        <Column Assignment="96" Source="national_insurance_number" Target="national_insurance_number" DataType="String" />
+        <Column Assignment="97" Source="directors_identification_number" Target="directors_identification_number" DataType="String" />
+        <Column Assignment="98" Source="insider_status" Target="insider_status" DataType="String" />
+        <Column Assignment="99" Source="occupation" Target="occupation" DataType="String" />
+        <Column Assignment="100" Source="pep_sanctions" Target="pep_sanctions" DataType="String" />
+        <Column Assignment="101" Source="controlling_shareholder" Target="controlling_shareholder" DataType="String" />
+        <Column Assignment="102" Source="employer" Target="employer" DataType="String" />
+        <Column Assignment="103" Source="copy_of_id_received" Target="copy_of_id_received" DataType="String" />
+        <Column Assignment="104" Source="issuing_authority_of_id_1" Target="issuing_authority_of_id_1" DataType="String" />
+        <Column Assignment="105" Source="issuing_country_of_id_1" Target="issuing_country_of_id_1" DataType="String" />
+        <Column Assignment="106" Source="type_of_id_1" Target="type_of_id_1" DataType="String" />
+        <Column Assignment="107" Source="unique_identification_number_1" Target="unique_identification_number_1" DataType="String" />
+        <Column Assignment="108" Source="issuing_authority_of_id_2" Target="issuing_authority_of_id_2" DataType="String" />
+        <Column Assignment="109" Source="issuing_country_of_id_2" Target="issuing_country_of_id_2" DataType="String" />
+        <Column Assignment="110" Source="type_of_id_2" Target="type_of_id_2" DataType="String" />
+        <Column Assignment="111" Source="unique_identification_number_2" Target="unique_identification_number_2" DataType="String" />
+        <Column Assignment="112" Source="verification_date_of_id_1" Target="verification_date_of_id_1" DataType="String" />
+        <Column Assignment="113" Source="expiration_date_of_id_1" Target="expiration_date_of_id_1" DataType="String" />
+        <Column Assignment="114" Source="verification_date_of_id_2" Target="verification_date_of_id_2" DataType="String" />
+        <Column Assignment="115" Source="expiration_date_of_id_2" Target="expiration_date_of_id_2" DataType="String" />
+        <Column Assignment="116" Source="gdpr_additional_comment" Target="gdpr_additional_comment" DataType="String" />
+        <Column Assignment="117" Source="contact_primary_phone_number" Target="contact_primary_phone_number" DataType="String" />
+        <Column Assignment="118" Source="le_phone_number" Target="le_phone_number" DataType="String" />
+        <Column Assignment="119" Source="le_email" Target="le_email" DataType="String" />
+        <Column Assignment="120" Source="contact_email" Target="contact_email" DataType="String" />
+        <Column Assignment="121" Source="third_party_control" Target="third_party_control" DataType="String" />
+        <Column Assignment="122" Source="product_id" Target="product_id" DataType="String" />
+        <Column Assignment="123" Source="product_status" Target="product_status" DataType="String" />
+        <Column Assignment="124" Source="product_category" Target="product_category" DataType="String" />
+        <Column Assignment="125" Source="product_type" Target="product_type" DataType="String" />
+        <Column Assignment="126" Source="booking_entity" Target="booking_entity" DataType="String" />
+        <Column Assignment="127" Source="arranging_entity" Target="arranging_entity" DataType="String" />
+        <Column Assignment="128" Source="product_country" Target="product_country" DataType="String" />
+        <Column Assignment="129" Source="region" Target="region" DataType="String" />
+        <Column Assignment="130" Source="product_risk_category" Target="product_risk_category" DataType="String" />
+        <Column Assignment="131" Source="frequency_of_trading_volume" Target="frequency_of_trading_volume" DataType="String" />
+        <Column Assignment="132" Source="desk" Target="desk" DataType="String" />
+        <Column Assignment="133" Source="internal_desk" Target="internal_desk" DataType="String" />
+        <Column Assignment="134" Source="purpose_of_account_intended_use_of_account" Target="purpose_of_account_intended_use_of_account" DataType="String" />
+        <Column Assignment="135" Source="source_of_funds" Target="source_of_funds" DataType="String" />
+        <Column Assignment="136" Source="source_of_funds_details" Target="source_of_funds_details" DataType="String" />
+        <Column Assignment="137" Source="address_type_flag" Target="address_type_flag" DataType="String" />
+        <Column Assignment="138" Source="primary_add_line_1" Target="primary_add_line_1" DataType="String" />
+        <Column Assignment="139" Source="primary_add_line_2" Target="primary_add_line_2" DataType="String" />
+        <Column Assignment="140" Source="primary_add_city" Target="primary_add_city" DataType="String" />
+        <Column Assignment="141" Source="primary_add_state" Target="primary_add_state" DataType="String" />
+        <Column Assignment="142" Source="primary_add_country" Target="primary_add_country" DataType="String" />
+        <Column Assignment="143" Source="primary_add_postal_code" Target="primary_add_postal_code" DataType="String" />
+        <Column Assignment="144" Source="reg_add_line_1" Target="reg_add_line_1" DataType="String" />
+        <Column Assignment="145" Source="reg_add_line_2" Target="reg_add_line_2" DataType="String" />
+        <Column Assignment="146" Source="reg_add_city" Target="reg_add_city" DataType="String" />
+        <Column Assignment="147" Source="reg_add_state" Target="reg_add_state" DataType="String" />
+        <Column Assignment="148" Source="reg_add_country" Target="reg_add_country" DataType="String" />
+        <Column Assignment="149" Source="reg_add_postal_code" Target="reg_add_postal_code" DataType="String" />
+        <Column Assignment="150" Source="association_id" Target="association_id" DataType="String" />
+        <Column Assignment="151" Source="relationship_association_type" Target="relationship_association_type" DataType="String" />
+        <Column Assignment="152" Source="control_position" Target="control_position" DataType="String" />
+        <Column Assignment="153" Source="percentage_of_voting_shares" Target="percentage_of_voting_shares" DataType="String" />
+    </RecordTemplate>
+</ExtractConfig>
+
+```
+
+assets/queries/EDL_Report.sql:
+
+```sql
+
+```
+
+report_definitions/edl_report.py:
 
 ```python
+REPORT_NAME = "EDLReport"
+SQL_FILE = "EDL_Report.sql"
+TEMPLATE_FILE = "EDL_Report.xml"
+# Placeholders pending team lead/infra confirmation - see docs/roadmap.md.
+ARCHIVE_PATH = "EDL"
+SFTP_CONNECTION = "ClientCentralData"
+
+MARKER_TYPE = "fircosoft_manifest"
+OUTPUT_FILENAME_TEMPLATE = "Fircosoft_Fcore_EDL_Data_{date}.csv"
+MANIFEST_SOURCE_APPL = {
+    "providingParty": "gbm",
+    "country": "can",
+    "region": "nam",
+    "appAcronym": "b8fb",
+    "frequency": "dly",
+    "securityClassification": "cpi",
+    "operation": "f",
+    "ingestionFramework": "y",
+    "fileTransfer": "push",
+}
+MANIFEST_SOURCE_FILE_STATIC = {
+    "dataRention": "",
+    "compressType": "",
+    "ingestMetadata": "Fircosoft_EDL_Metadata_V8.xml",
+    "fileCompressed": "n",
+    "toCharSet": "",
+    "recordCount": "",  # position only - value computed per run
+    "dataFileMD5": "",
+    "fromCharSet": "",
+    "invalidRecordThreshold": "0",
+    "fileExtension": "csv",
+    "dataFileURI": "",  # position only - value computed per run
+    "charSetConv": "n",
+}
+
+```
+
+tests/services/test_reporting_orchestrator.py::
+
+```python
+
 import dataclasses
 import hashlib
 import json
@@ -2998,217 +3211,4 @@ async def test_output_filename_uses_date_only_timestamp(db):
 
 def _all_executions():
     return execution_service.list_executions()
-
-```
-
-assets/templates/EDL_Report.xml:
-
-```xml
-<?xml version="1.0" encoding="utf-8" ?>
-<!-- Source=Target deliberately identical for now - real Target renames come later,
-     once transform is actually needed (see docs/decisions.md). -->
-<ExtractConfig ExtractType="CSV" DateFormat="M/d/yyyy h:mm:ss tt" MaxRetry="5">
-    <RecordTemplate>
-        <Column Assignment="1" Source="unique_identification_number" Target="unique_identification_number" DataType="String" />
-        <Column Assignment="2" Source="fenergo_id" Target="fenergo_id" DataType="String" />
-        <Column Assignment="3" Source="legal_entity_name" Target="legal_entity_name" DataType="String" />
-        <Column Assignment="4" Source="legal_entity_type" Target="legal_entity_type" DataType="String" />
-        <Column Assignment="5" Source="entity_type" Target="entity_type" DataType="String" />
-        <Column Assignment="6" Source="legal_entity_category" Target="legal_entity_category" DataType="String" />
-        <Column Assignment="7" Source="lei" Target="lei" DataType="String" />
-        <Column Assignment="8" Source="legal_entity_role" Target="legal_entity_role" DataType="String" />
-        <Column Assignment="9" Source="legal_entity_role_status" Target="legal_entity_role_status" DataType="String" />
-        <Column Assignment="10" Source="lerole_last_updated_date" Target="lerole_last_updated_date" DataType="String" />
-        <Column Assignment="11" Source="lerole_last_updated_by" Target="lerole_last_updated_by" DataType="String" />
-        <Column Assignment="12" Source="alias_1" Target="alias_1" DataType="String" />
-        <Column Assignment="13" Source="alias_1_type" Target="alias_1_type" DataType="String" />
-        <Column Assignment="14" Source="alias_2" Target="alias_2" DataType="String" />
-        <Column Assignment="15" Source="alias_2_type" Target="alias_2_type" DataType="String" />
-        <Column Assignment="16" Source="alias_3" Target="alias_3" DataType="String" />
-        <Column Assignment="17" Source="alias_3_type" Target="alias_3_type" DataType="String" />
-        <Column Assignment="18" Source="alias_4" Target="alias_4" DataType="String" />
-        <Column Assignment="19" Source="alias_4_type" Target="alias_4_type" DataType="String" />
-        <Column Assignment="20" Source="le_last_updated_date" Target="le_last_updated_date" DataType="String" />
-        <Column Assignment="21" Source="jurisdiction" Target="jurisdiction" DataType="String" />
-        <Column Assignment="22" Source="entity_of_onboarding" Target="entity_of_onboarding" DataType="String" />
-        <Column Assignment="23" Source="primary_business_activity" Target="primary_business_activity" DataType="String" />
-        <Column Assignment="24" Source="primary_business_location" Target="primary_business_location" DataType="String" />
-        <Column Assignment="25" Source="principal_place_of_business" Target="principal_place_of_business" DataType="String" />
-        <Column Assignment="26" Source="business_markets" Target="business_markets" DataType="String" />
-        <Column Assignment="27" Source="country_of_domicile" Target="country_of_domicile" DataType="String" />
-        <Column Assignment="28" Source="country_of_incorporation" Target="country_of_incorporation" DataType="String" />
-        <Column Assignment="29" Source="gleif_registration_authority_entityid" Target="gleif_registration_authority_entityid" DataType="String" />
-        <Column Assignment="30" Source="enterprise_sic_code" Target="enterprise_sic_code" DataType="String" />
-        <Column Assignment="31" Source="swift_bic" Target="swift_bic" DataType="String" />
-        <Column Assignment="32" Source="tax_identifier" Target="tax_identifier" DataType="String" />
-        <Column Assignment="33" Source="issuing_country" Target="issuing_country" DataType="String" />
-        <Column Assignment="34" Source="date_of_incorporation" Target="date_of_incorporation" DataType="String" />
-        <Column Assignment="35" Source="is_this_entity_publicly_listed" Target="is_this_entity_publicly_listed" DataType="String" />
-        <Column Assignment="36" Source="legal_status" Target="legal_status" DataType="String" />
-        <Column Assignment="37" Source="length_of_relationship_with_scotiabank" Target="length_of_relationship_with_scotiabank" DataType="String" />
-        <Column Assignment="38" Source="aml_watch_list" Target="aml_watch_list" DataType="String" />
-        <Column Assignment="39" Source="annual_revenue_usd_millions" Target="annual_revenue_usd_millions" DataType="String" />
-        <Column Assignment="40" Source="business_changes_made_in_the_last_5_years" Target="business_changes_made_in_the_last_5_years" DataType="String" />
-        <Column Assignment="41" Source="number_of_employees" Target="number_of_employees" DataType="String" />
-        <Column Assignment="42" Source="trading_name" Target="trading_name" DataType="String" />
-        <Column Assignment="43" Source="registration_body" Target="registration_body" DataType="String" />
-        <Column Assignment="44" Source="australian_company_number_issued" Target="australian_company_number_issued" DataType="String" />
-        <Column Assignment="45" Source="anticipated_activity_of_account" Target="anticipated_activity_of_account" DataType="String" />
-        <Column Assignment="46" Source="regulated_by" Target="regulated_by" DataType="String" />
-        <Column Assignment="47" Source="does_the_entity_have_a_previous_name" Target="does_the_entity_have_a_previous_name" DataType="String" />
-        <Column Assignment="48" Source="ltid" Target="ltid" DataType="String" />
-        <Column Assignment="49" Source="regulatory_status" Target="regulatory_status" DataType="String" />
-        <Column Assignment="50" Source="nature_of_business" Target="nature_of_business" DataType="String" />
-        <Column Assignment="51" Source="primary_customer_base" Target="primary_customer_base" DataType="String" />
-        <Column Assignment="52" Source="primary_revenue_generating_products_and_services" Target="primary_revenue_generating_products_and_services" DataType="String" />
-        <Column Assignment="53" Source="registration_number" Target="registration_number" DataType="String" />
-        <Column Assignment="54" Source="payment_countries" Target="payment_countries" DataType="String" />
-        <Column Assignment="55" Source="third_party_account" Target="third_party_account" DataType="String" />
-        <Column Assignment="56" Source="significant_customer_countries" Target="significant_customer_countries" DataType="String" />
-        <Column Assignment="57" Source="significant_revenue_countries" Target="significant_revenue_countries" DataType="String" />
-        <Column Assignment="58" Source="significant_supplier_countries" Target="significant_supplier_countries" DataType="String" />
-        <Column Assignment="59" Source="website" Target="website" DataType="String" />
-        <Column Assignment="60" Source="scheduled_review_date" Target="scheduled_review_date" DataType="String" />
-        <Column Assignment="61" Source="compliance_review_date" Target="compliance_review_date" DataType="String" />
-        <Column Assignment="62" Source="le_last_updated_by" Target="le_last_updated_by" DataType="String" />
-        <Column Assignment="63" Source="specialized_edd_entity_type" Target="specialized_edd_entity_type" DataType="String" />
-        <Column Assignment="64" Source="specialized_edd_required" Target="specialized_edd_required" DataType="String" />
-        <Column Assignment="65" Source="global_risk_rating" Target="global_risk_rating" DataType="String" />
-        <Column Assignment="66" Source="australia_risk_rating" Target="australia_risk_rating" DataType="String" />
-        <Column Assignment="67" Source="canada_risk_rating" Target="canada_risk_rating" DataType="String" />
-        <Column Assignment="68" Source="china_risk_rating" Target="china_risk_rating" DataType="String" />
-        <Column Assignment="69" Source="correspondent_banking_risk_rating" Target="correspondent_banking_risk_rating" DataType="String" />
-        <Column Assignment="70" Source="hong_kong_risk_rating" Target="hong_kong_risk_rating" DataType="String" />
-        <Column Assignment="71" Source="india_risk_rating" Target="india_risk_rating" DataType="String" />
-        <Column Assignment="72" Source="ireland_risk_rating" Target="ireland_risk_rating" DataType="String" />
-        <Column Assignment="73" Source="united_kingdom_risk_rating" Target="united_kingdom_risk_rating" DataType="String" />
-        <Column Assignment="74" Source="united_states_risk_rating" Target="united_states_risk_rating" DataType="String" />
-        <Column Assignment="75" Source="republic_of_korea_risk_rating" Target="republic_of_korea_risk_rating" DataType="String" />
-        <Column Assignment="76" Source="singapore_risk_rating" Target="singapore_risk_rating" DataType="String" />
-        <Column Assignment="77" Source="global_model_exclusions" Target="global_model_exclusions" DataType="String" />
-        <Column Assignment="78" Source="pep_controlled_entity" Target="pep_controlled_entity" DataType="String" />
-        <Column Assignment="79" Source="material_negative_news" Target="material_negative_news" DataType="String" />
-        <Column Assignment="80" Source="negative_news_information_narrative" Target="negative_news_information_narrative" DataType="String" />
-        <Column Assignment="81" Source="title" Target="title" DataType="String" />
-        <Column Assignment="82" Source="first_name" Target="first_name" DataType="String" />
-        <Column Assignment="83" Source="last_name" Target="last_name" DataType="String" />
-        <Column Assignment="84" Source="date_of_birth" Target="date_of_birth" DataType="String" />
-        <Column Assignment="85" Source="place_of_birth" Target="place_of_birth" DataType="String" />
-        <Column Assignment="86" Source="citizenship" Target="citizenship" DataType="String" />
-        <Column Assignment="87" Source="nationality" Target="nationality" DataType="String" />
-        <Column Assignment="88" Source="country_of_residence" Target="country_of_residence" DataType="String" />
-        <Column Assignment="89" Source="gender" Target="gender" DataType="String" />
-        <Column Assignment="90" Source="pan_id" Target="pan_id" DataType="String" />
-        <Column Assignment="91" Source="company_name__insider_or_shareholder_of" Target="company_name__insider_or_shareholder_of" DataType="String" />
-        <Column Assignment="92" Source="marital_status" Target="marital_status" DataType="String" />
-        <Column Assignment="93" Source="number_of_identification_document" Target="number_of_identification_document" DataType="String" />
-        <Column Assignment="94" Source="document_type" Target="document_type" DataType="String" />
-        <Column Assignment="95" Source="document_category" Target="document_category" DataType="String" />
-        <Column Assignment="96" Source="national_insurance_number" Target="national_insurance_number" DataType="String" />
-        <Column Assignment="97" Source="directors_identification_number" Target="directors_identification_number" DataType="String" />
-        <Column Assignment="98" Source="insider_status" Target="insider_status" DataType="String" />
-        <Column Assignment="99" Source="occupation" Target="occupation" DataType="String" />
-        <Column Assignment="100" Source="pep_sanctions" Target="pep_sanctions" DataType="String" />
-        <Column Assignment="101" Source="controlling_shareholder" Target="controlling_shareholder" DataType="String" />
-        <Column Assignment="102" Source="employer" Target="employer" DataType="String" />
-        <Column Assignment="103" Source="copy_of_id_received" Target="copy_of_id_received" DataType="String" />
-        <Column Assignment="104" Source="issuing_authority_of_id_1" Target="issuing_authority_of_id_1" DataType="String" />
-        <Column Assignment="105" Source="issuing_country_of_id_1" Target="issuing_country_of_id_1" DataType="String" />
-        <Column Assignment="106" Source="type_of_id_1" Target="type_of_id_1" DataType="String" />
-        <Column Assignment="107" Source="unique_identification_number_1" Target="unique_identification_number_1" DataType="String" />
-        <Column Assignment="108" Source="issuing_authority_of_id_2" Target="issuing_authority_of_id_2" DataType="String" />
-        <Column Assignment="109" Source="issuing_country_of_id_2" Target="issuing_country_of_id_2" DataType="String" />
-        <Column Assignment="110" Source="type_of_id_2" Target="type_of_id_2" DataType="String" />
-        <Column Assignment="111" Source="unique_identification_number_2" Target="unique_identification_number_2" DataType="String" />
-        <Column Assignment="112" Source="verification_date_of_id_1" Target="verification_date_of_id_1" DataType="String" />
-        <Column Assignment="113" Source="expiration_date_of_id_1" Target="expiration_date_of_id_1" DataType="String" />
-        <Column Assignment="114" Source="verification_date_of_id_2" Target="verification_date_of_id_2" DataType="String" />
-        <Column Assignment="115" Source="expiration_date_of_id_2" Target="expiration_date_of_id_2" DataType="String" />
-        <Column Assignment="116" Source="gdpr_additional_comment" Target="gdpr_additional_comment" DataType="String" />
-        <Column Assignment="117" Source="contact_primary_phone_number" Target="contact_primary_phone_number" DataType="String" />
-        <Column Assignment="118" Source="le_phone_number" Target="le_phone_number" DataType="String" />
-        <Column Assignment="119" Source="le_email" Target="le_email" DataType="String" />
-        <Column Assignment="120" Source="contact_email" Target="contact_email" DataType="String" />
-        <Column Assignment="121" Source="third_party_control" Target="third_party_control" DataType="String" />
-        <Column Assignment="122" Source="product_id" Target="product_id" DataType="String" />
-        <Column Assignment="123" Source="product_status" Target="product_status" DataType="String" />
-        <Column Assignment="124" Source="product_category" Target="product_category" DataType="String" />
-        <Column Assignment="125" Source="product_type" Target="product_type" DataType="String" />
-        <Column Assignment="126" Source="booking_entity" Target="booking_entity" DataType="String" />
-        <Column Assignment="127" Source="arranging_entity" Target="arranging_entity" DataType="String" />
-        <Column Assignment="128" Source="product_country" Target="product_country" DataType="String" />
-        <Column Assignment="129" Source="region" Target="region" DataType="String" />
-        <Column Assignment="130" Source="product_risk_category" Target="product_risk_category" DataType="String" />
-        <Column Assignment="131" Source="frequency_of_trading_volume" Target="frequency_of_trading_volume" DataType="String" />
-        <Column Assignment="132" Source="desk" Target="desk" DataType="String" />
-        <Column Assignment="133" Source="internal_desk" Target="internal_desk" DataType="String" />
-        <Column Assignment="134" Source="purpose_of_account_intended_use_of_account" Target="purpose_of_account_intended_use_of_account" DataType="String" />
-        <Column Assignment="135" Source="source_of_funds" Target="source_of_funds" DataType="String" />
-        <Column Assignment="136" Source="source_of_funds_details" Target="source_of_funds_details" DataType="String" />
-        <Column Assignment="137" Source="address_type_flag" Target="address_type_flag" DataType="String" />
-        <Column Assignment="138" Source="primary_add_line_1" Target="primary_add_line_1" DataType="String" />
-        <Column Assignment="139" Source="primary_add_line_2" Target="primary_add_line_2" DataType="String" />
-        <Column Assignment="140" Source="primary_add_city" Target="primary_add_city" DataType="String" />
-        <Column Assignment="141" Source="primary_add_state" Target="primary_add_state" DataType="String" />
-        <Column Assignment="142" Source="primary_add_country" Target="primary_add_country" DataType="String" />
-        <Column Assignment="143" Source="primary_add_postal_code" Target="primary_add_postal_code" DataType="String" />
-        <Column Assignment="144" Source="reg_add_line_1" Target="reg_add_line_1" DataType="String" />
-        <Column Assignment="145" Source="reg_add_line_2" Target="reg_add_line_2" DataType="String" />
-        <Column Assignment="146" Source="reg_add_city" Target="reg_add_city" DataType="String" />
-        <Column Assignment="147" Source="reg_add_state" Target="reg_add_state" DataType="String" />
-        <Column Assignment="148" Source="reg_add_country" Target="reg_add_country" DataType="String" />
-        <Column Assignment="149" Source="reg_add_postal_code" Target="reg_add_postal_code" DataType="String" />
-        <Column Assignment="150" Source="association_id" Target="association_id" DataType="String" />
-        <Column Assignment="151" Source="relationship_association_type" Target="relationship_association_type" DataType="String" />
-        <Column Assignment="152" Source="control_position" Target="control_position" DataType="String" />
-        <Column Assignment="153" Source="percentage_of_voting_shares" Target="percentage_of_voting_shares" DataType="String" />
-    </RecordTemplate>
-</ExtractConfig>
-
-```
-
-assets/queries/EDL_Report.sql:
-
-```sql
-
-```
-
-report_definitions/edl_report.py:
-
-```python
-REPORT_NAME = "EDLReport"
-SQL_FILE = "EDL_Report.sql"
-TEMPLATE_FILE = "EDL_Report.xml"
-# Placeholders pending team lead/infra confirmation - see docs/roadmap.md.
-ARCHIVE_PATH = "EDL"
-SFTP_CONNECTION = "ClientCentralData"
-
-MARKER_TYPE = "fircosoft_manifest"
-OUTPUT_FILENAME_TEMPLATE = "Fircosoft_Fcore_EDL_Data_{date}.csv"
-MANIFEST_SOURCE_APPL = {
-    "providingParty": "gbm",
-    "country": "can",
-    "region": "nam",
-    "appAcronym": "b8fb",
-    "frequency": "dly",
-    "securityClassification": "cpi",
-    "operation": "f",
-    "ingestionFramework": "y",
-    "fileTransfer": "push",
-}
-MANIFEST_SOURCE_FILE_STATIC = {
-    "dataRention": "",
-    "compressType": "",
-    "ingestMetadata": "Fircosoft_EDL_Metadata_V8.xml",
-    "fileCompressed": "n",
-    "toCharSet": "",
-    "recordCount": "",  # position only - value computed per run
-    "dataFileMD5": "",
-    "fromCharSet": "",
-    "invalidRecordThreshold": "0",
-    "fileExtension": "csv",
-    "dataFileURI": "",  # position only - value computed per run
-    "charSetConv": "n",
-}
-
 ```
